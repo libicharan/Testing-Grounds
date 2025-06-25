@@ -1,20 +1,31 @@
 "use server";
 
+export type Product = {
+  id: number;
+  name: string;
+  short_description: string;
+  description: string;
+  product_url: string;
+  product_image: string;
+  color_code: string;
+  status: number;
+};
+
 export async function getProducts() {
   const res = await fetch("https://auth.devcri.com/api/products/list", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      // Include Authorization or API key here if needed
-      // 'Authorization': 'Bearer <your_token>'
     },
-    cache: "no-store", // Avoid caching
+    cache: "no-store",
   });
 
   if (!res.ok) {
     throw new Error("Failed to fetch products");
   }
 
-  const data = await res.json();
-  return data;
+  const json = await res.json();
+
+  // ✅ Only return the data array
+  return json.data;
 }
