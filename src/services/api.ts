@@ -1,10 +1,10 @@
 "use server";
 import { permanentRedirect } from "next/navigation";
-import { CustomResponse } from "@/types";
-import { createQueryString } from "@/utils/helper";
 import { ApiError } from "next/dist/server/api-utils";
 import { headers } from "next/headers";
 import config from "./globalconfig";
+import { createQueryString } from "@/app/helpers/helper";
+import { CustomResponse } from "@/app/products/types";
 
 type ValidationErrors = {
   [field: string]: string[];
