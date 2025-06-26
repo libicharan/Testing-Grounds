@@ -27,5 +27,6 @@ export type Job = {
   company_name: string;
   profile: string;
   status: string;
-  required_skillset: string[]; // or a more specific type if known
+  required_skillset: string[];
+  company_details?: object[];
 };
