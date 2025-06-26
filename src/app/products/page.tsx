@@ -3,7 +3,7 @@ import { getProducts, type Product } from "./actions/getProducts";
 import { Divider } from "primereact/divider";
 
 export default async function ProductsPage() {
-  const products: Product[] = await getProducts(); // ✅ now TypeScript knows the shape
+  const products: Product[] = await getProducts();
 
   return (
     <div className="p-6 dark:bg-white">
@@ -19,9 +19,7 @@ export default async function ProductsPage() {
 
       <Divider />
 
-      <div className="flex justify-end mt-4">
-        {/* You can make this a separate Client Component too if needed */}
-      </div>
+      <div className="flex justify-end mt-4"></div>
     </div>
   );
 }

@@ -8,18 +8,19 @@ import Image from "next/image";
 export default function ProductCard({ product }: { product: Product }) {
   return (
     <Card
-      className="shadow-md border border-gray-200 text-black p-6 mt-3 flex flex-col justify-between h-full"
+      className="shadow-md border border-gray-200 text-black p-4 m-4 flex flex-col justify-between h-full hover:shadow-lg"
       header={
-        <Image
-          alt={product.name}
-          src={product.product_image}
-          width={200}
-          height={100}
-          className="w-full h-40 object-contain p-4 rounded"
-          style={{
-            backgroundColor: product.color_code || "#f9fafb",
-          }}
-        />
+        <div
+          className="w-full h-40 bg-gray-100 rounded relative overflow-hidden"
+          style={{ backgroundColor: product.color_code || "#f9fafb" }}
+        >
+          <Image
+            alt={product.name}
+            src={product.product_image}
+            fill
+            className="object-contain p-4"
+          />
+        </div>
       }
     >
       <div className="flex flex-col flex-grow">

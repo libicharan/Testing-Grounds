@@ -26,6 +26,5 @@ export async function getProducts() {
 
   const json = await res.json();
 
-  // ✅ Only return the data array
   return json.data;
 }
