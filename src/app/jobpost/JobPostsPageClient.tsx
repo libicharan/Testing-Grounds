@@ -1,13 +1,13 @@
-// src/app/jobpost/JobPostsPageClient.tsx
 "use client";
 
-import { Job, PaginationMeta } from "./_types/jobposttypes";
+import { Job } from "./_types/jobposttypes";
+import { Meta } from "./actions/posts";
 import JobCard from "../components/JobCard";
 import CustomPaginator from "../components/_shared/CustomPaginator";
 
 type Props = {
   data: Job[];
-  meta: PaginationMeta;
+  meta: Meta;
 };
 
 export default function JobPostsPageClient({ data, meta }: Props) {
@@ -18,6 +18,7 @@ export default function JobPostsPageClient({ data, meta }: Props) {
           <JobCard key={job.uuid} job={job} />
         ))}
       </div>
+
       <CustomPaginator meta={meta} />
     </>
   );

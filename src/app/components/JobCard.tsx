@@ -28,32 +28,67 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
   );
 
   return (
-    <Card
-      title={job.job_title}
-      subTitle={`${job.department} • ${job.job_location}`}
-      footer={footer}
-      className={`shadow-md border border-gray-200 rounded-md hover:shadow-lg transition duration-200 p-6 text-black ${job.status === "Closed" ? "border-t-4 border-[#ee3131]" : "border-t-4 border-[#80f154]"}`}
-    >
-      <div className="text-sm text-gray-700 space-y-2">
-        <p>
-          <strong>Type:</strong>{" "}
-          <Tag value={job.job_type} severity="info" className="ml-1" />s
-        </p>
-        <p>
-          <strong>Experience:</strong> {job.work_experience}
-        </p>
-        <p>
-          <strong>Salary:</strong>{" "}
-          {job.exact_salary ??
-            job.starting_salary ??
-            job.maximum_salary ??
-            "Not specified"}
-        </p>
-        <p>
-          <strong>Qualification:</strong> {job.minimum_qualification}
-        </p>
-      </div>
-    </Card>
+    <>
+      {job.status === "Closed" ? (
+        <>
+          <Card
+            title={job.job_title}
+            subTitle={`${job.department} • ${job.job_location}`}
+            footer={footer}
+            className={`shadow-md border rounded-md hover:shadow-lg transition duration-200 p-6 text-black border-t-4 border-[#f33939]`}
+          >
+            <div className="text-sm text-gray-700 space-y-2">
+              <p>
+                <strong>Type:</strong>{" "}
+                <Tag value={job.job_type} severity="info" className="ml-1" />s
+              </p>
+              <p>
+                <strong>Experience:</strong> {job.work_experience}
+              </p>
+              <p>
+                <strong>Salary:</strong>{" "}
+                {job.exact_salary ??
+                  job.starting_salary ??
+                  job.maximum_salary ??
+                  "Not specified"}
+              </p>
+              <p>
+                <strong>Qualification:</strong> {job.minimum_qualification}
+              </p>
+            </div>
+          </Card>
+        </>
+      ) : (
+        <>
+          <Card
+            title={job.job_title}
+            subTitle={`${job.department} • ${job.job_location}`}
+            footer={footer}
+            className={`shadow-md border rounded-md hover:shadow-lg transition duration-200 p-6 text-black border-t-4 border-[#7ff352]`}
+          >
+            <div className="text-sm text-gray-700 space-y-2">
+              <p>
+                <strong>Type:</strong>{" "}
+                <Tag value={job.job_type} severity="info" className="ml-1" />s
+              </p>
+              <p>
+                <strong>Experience:</strong> {job.work_experience}
+              </p>
+              <p>
+                <strong>Salary:</strong>{" "}
+                {job.exact_salary ??
+                  job.starting_salary ??
+                  job.maximum_salary ??
+                  "Not specified"}
+              </p>
+              <p>
+                <strong>Qualification:</strong> {job.minimum_qualification}
+              </p>
+            </div>
+          </Card>
+        </>
+      )}
+    </>
   );
 };
 

@@ -4,9 +4,9 @@ import JobPostsPageClient from "./JobPostsPageClient";
 export default async function JobPostsPage({
   searchParams,
 }: {
-  searchParams: { page?: string };
+  searchParams: Promise<{ page?: string }>;
 }) {
-  const page = parseInt(searchParams.page || "1");
+  const page = parseInt((await searchParams).page || "1");
   const { data, meta } = await getJobPosts(page);
 
   return (
