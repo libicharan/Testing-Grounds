@@ -1,3 +1,5 @@
+// src/app/jobpost/_types/jobposttypes.ts
+
 export type Job = {
   uuid: string;
   job_id: string;
@@ -28,5 +30,13 @@ export type Job = {
   profile: string;
   status: string;
   required_skillset: string[];
-  company_details?: object[];
+};
+
+export type PaginationMeta = {
+  total: number;
+  per_page: number;
+  current_page: number;
+  last_page: number;
+  from: number;
+  to: number;
 };

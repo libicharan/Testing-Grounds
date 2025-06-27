@@ -1,25 +1,23 @@
-import React from "react";
 import { getJobPosts } from "./actions/posts";
-import { Job } from "./_types/jobposttypes";
-import JobCard from "../components/JobCard";
+import JobPostsPageClient from "./JobPostsPageClient";
 
-export default async function JobPostsPage() {
-  const jobs: Job[] = await getJobPosts();
+export default async function JobPostsPage({
+  searchParams,
+}: {
+  searchParams: { page?: string };
+}) {
+  const page = parseInt(searchParams.page || "1");
+  const { data, meta } = await getJobPosts(page);
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        Available Job Listings
+        Available Jobs
       </h1>
-
-      {jobs.length === 0 ? (
+      {data.length === 0 ? (
         <p className="text-center text-gray-500">No job postings available.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {jobs.map((job: Job) => (
-            <JobCard key={job.uuid} job={job} />
-          ))}
-        </div>
+        <JobPostsPageClient data={data} meta={meta} />
       )}
     </div>
   );

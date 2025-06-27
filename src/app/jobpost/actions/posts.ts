@@ -1,14 +1,13 @@
+// src/app/jobpost/actions/posts.ts
 "use server";
 
 import config from "@/services/globalconfig";
 import { headers } from "next/headers";
-import { Job } from "../_types/jobposttypes";
+import { Job, PaginationMeta } from "../_types/jobposttypes";
 
-interface headers {
-  headers?: HeadersInit;
-}
-
-export async function getJobPosts(): Promise<Job[]> {
+export async function getJobPosts(
+  page = 1,
+): Promise<{ data: Job[]; meta: PaginationMeta }> {
   if (!config.API_URL) throw new Error("API_URL is not defined");
   const cookie = (await headers())?.get("cookie");
 
@@ -17,35 +16,27 @@ export async function getJobPosts(): Promise<Job[]> {
     ...(cookie ? { Cookie: cookie } : {}),
   };
 
-  const res = await fetch(`${config.API_URL}/job-posts`, {
+  const res = await fetch(`${config.API_URL}/job-posts?page=${page}`, {
     credentials: "include",
     headers: headersObj,
   });
-
-  //  console.log('res',res)
 
   if (!res.ok) {
     throw new Error(`HTTP error! status: ${res.status}`);
   }
 
-  const contentType = res.headers.get("content-type");
+  const json = await res.json();
+  console.log("✅ API JSON response:", json);
 
-  if (contentType && contentType.includes("application/json")) {
-    const json = await res.json();
-    console.log("✅ API JSON response:", json);
-
-    // Check for common API structure
-    if (Array.isArray(json)) {
-      return json; // directly an array
-    } else if (Array.isArray(json.data)) {
-      return json.data; // array under `data`
-    } else {
-      console.warn("🚨 Unexpected format", json);
-      return [];
-    }
-  } else {
-    const text = await res.text(); // fallback for HTML or plain text
-    console.warn("Expected JSON, got:", text);
-    return [];
-  }
+  return {
+    data: json.data ?? [],
+    meta: json.meta ?? {
+      total: 0,
+      per_page: 10,
+      current_page: 1,
+      last_page: 1,
+      from: 0,
+      to: 0,
+    },
+  };
 }
