@@ -1,16 +1,21 @@
+import { BreadCrumbsroutes } from "../components/_shared/BreadCrumbRoutes";
+import CustomBreadcrumb from "../components/_shared/CustomBreadcrumb";
 import { getJobPosts } from "./actions/posts";
 import JobPostsPageClient from "./JobPostsPageClient";
 
 export default async function JobPostsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; per_page?: string }>;
 }) {
   const page = parseInt((await searchParams).page || "1");
-  const { data, meta } = await getJobPosts(page);
+  const perPage = parseInt((await searchParams).per_page || "10");
+
+  const { data, meta } = await getJobPosts(page, perPage);
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50">
+      <CustomBreadcrumb Title="Welcome" items={BreadCrumbsroutes.jobpost} />
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
         Available Jobs
       </h1>

@@ -9,13 +9,14 @@ export type Meta = {
   total: number;
   per_page: number;
   current_page: number;
-  last_page?: number;
-  from?: number;
-  to?: number;
+  last_page: number;
+  from: number;
+  to: number;
 };
 
 export async function getJobPosts(
   page = 1,
+  per_page = 10,
 ): Promise<{ data: Job[]; meta: Meta }> {
   if (!config.API_URL) throw new Error("API_URL is not defined");
 
@@ -26,10 +27,13 @@ export async function getJobPosts(
     ...(cookie ? { Cookie: cookie } : {}),
   };
 
-  const res = await fetch(`${config.API_URL}/job-posts?page=${page}`, {
-    credentials: "include",
-    headers: headersObj,
-  });
+  const res = await fetch(
+    `${config.API_URL}/job-posts?page=${page}&per_page=${per_page}`,
+    {
+      credentials: "include",
+      headers: headersObj,
+    },
+  );
 
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
@@ -40,6 +44,16 @@ export async function getJobPosts(
     return { data: json.data, meta: json.meta };
   } else {
     console.warn("⚠️ Unexpected response format", json);
-    return { data: [], meta: { total: 0, per_page: 10, current_page: page } };
+    return {
+      data: [],
+      meta: {
+        total: 0,
+        per_page: 10,
+        current_page: page,
+        last_page: 0,
+        from: 0,
+        to: 0,
+      },
+    };
   }
 }

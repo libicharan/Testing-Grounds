@@ -40,7 +40,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
             <div className="text-sm text-gray-700 space-y-2">
               <p>
                 <strong>Type:</strong>{" "}
-                <Tag value={job.job_type} severity="info" className="ml-1" />s
+                <Tag value={job.job_type} severity="info" className="ml-1" />
               </p>
               <p>
                 <strong>Experience:</strong> {job.work_experience}
@@ -69,7 +69,7 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
             <div className="text-sm text-gray-700 space-y-2">
               <p>
                 <strong>Type:</strong>{" "}
-                <Tag value={job.job_type} severity="info" className="ml-1" />s
+                <Tag value={job.job_type} severity="info" className="ml-1" />
               </p>
               <p>
                 <strong>Experience:</strong> {job.work_experience}

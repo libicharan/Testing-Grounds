@@ -1,42 +1,76 @@
 "use client";
 
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
+import { Dropdown } from "primereact/dropdown";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type Props = {
   meta: {
     total: number;
     per_page: number;
     current_page: number;
+    last_page: number;
+    from: number;
+    to: number;
   };
 };
+
+const rowsOptions = [
+  { label: "10", value: 10 },
+  { label: "15", value: 15 },
+  { label: "25", value: 25 },
+];
 
 export default function CustomPaginator({ meta }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const onPageChange = (e: PaginatorPageChangeEvent) => {
+  const [rows, setRows] = useState(meta.per_page);
+  const [goPage, setGoPage] = useState(meta.current_page.toString());
+
+  const totalPages = meta.last_page;
+
+  useEffect(() => {
+    setGoPage(meta.current_page.toString());
+  }, [meta.current_page]);
+
+  const updateParams = (newParams: Record<string, string>) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("page", (e.page + 1).toString());
+    Object.entries(newParams).forEach(([key, val]) => params.set(key, val));
     router.push(`?${params.toString()}`);
   };
 
-  const totalPages = Math.ceil(meta.total / meta.per_page);
+  const onPageChange = (e: PaginatorPageChangeEvent) => {
+    updateParams({ page: (e.page + 1).toString(), per_page: rows.toString() });
+  };
+
+  const onRowsChange = (newRows: number) => {
+    setRows(newRows);
+    updateParams({ page: "1", per_page: newRows.toString() });
+  };
+
+  const onGoToPage = (value: string) => {
+    const pageNum = parseInt(value);
+    if (!isNaN(pageNum) && pageNum > 0 && pageNum <= meta.last_page) {
+      updateParams({ page: pageNum.toString(), per_page: rows.toString() });
+    }
+  };
 
   return (
-    <div className="mt-10 flex flex-col items-center space-y-4">
-      <p className="text-sm text-gray-600">
-        Showing page <strong>{meta.current_page}</strong> of{" "}
-        <strong>{totalPages}</strong> • Total Jobs:{" "}
-        <strong>{meta.total}</strong>
-      </p>
+    <div className="mt-10 w-full px-10 flex flex-col lg:flex-row justify-between items-center gap-4 text-sm text-gray-700">
+      {/* Left: Total */}
+      <div className="flex items-center">
+        Total Jobs: <strong className="ml-1">{meta.total}</strong>
+      </div>
 
+      {/* Center: Pagination */}
       <Paginator
-        first={(meta.current_page - 1) * meta.per_page}
-        rows={meta.per_page}
+        first={(meta.current_page - 1) * rows}
+        rows={rows}
         totalRecords={meta.total}
         onPageChange={onPageChange}
-        className="!p-4 flex justify-center gap-2 text-black"
+        className="!p-2 text-black"
         template={{
           layout:
             "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink",
@@ -47,7 +81,7 @@ export default function CustomPaginator({ meta }: Props) {
               <span key={`page_${options.page}`} className="inline-flex">
                 <button
                   onClick={options.onClick}
-                  className={`w-10 h-10 rounded-full mx-1 text-sm flex items-center justify-center transition duration-200 ${
+                  className={`w-8 h-8 rounded-full mx-1 text-sm flex items-center justify-center transition duration-200 ${
                     isActive
                       ? "bg-blue-600 text-white font-semibold shadow"
                       : "bg-gray-200 text-black hover:bg-gray-300"
@@ -61,6 +95,35 @@ export default function CustomPaginator({ meta }: Props) {
           },
         }}
       />
+
+      {/* Right: Page X of Y + Rows Dropdown + Go To Page */}
+      <div className="flex items-center gap-4">
+        <span>
+          Page <strong>{meta.current_page}</strong> of{" "}
+          <strong>{totalPages}</strong>
+        </span>
+
+        {/* Rows per page dropdown */}
+        <Dropdown
+          value={rows}
+          options={rowsOptions}
+          onChange={(e) => onRowsChange(e.value)}
+          className="w-25"
+        />
+
+        {/* Go to page input */}
+        <input
+          type="number"
+          min={1}
+          max={totalPages}
+          value={goPage}
+          onChange={(e) => {
+            setGoPage(e.target.value);
+            onGoToPage(e.target.value);
+          }}
+          className="border px-3 py-1 rounded-md w-16"
+        />
+      </div>
     </div>
   );
 }

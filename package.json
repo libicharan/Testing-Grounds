@@ -14,9 +14,12 @@
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^7.1.2",
     "antd": "^5.26.2",
-    "flowbite-react": "^0.10.2",
+    "dayjs": "^1.11.13",
+    "flowbite": "^3.1.2",
+    "flowbite-react": "^0.11.8",
     "init": "^0.1.2",
     "next": "15.3.4",
+    "primeicons": "^7.0.0",
     "primereact": "^10.9.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
