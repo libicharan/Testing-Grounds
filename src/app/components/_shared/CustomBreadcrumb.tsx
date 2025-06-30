@@ -33,8 +33,8 @@ const CustomBreadcrumb: React.FC<Props> = ({
   return (
     <div
       className={`
-        mb-4 bg-white border rounded border-[#bababa] p-6
-        min-h-[64px] overflow-hidden
+        mb-4 bg-white border rounded border-[#bababa] p-x-5
+        overflow-hidden
         flex items-center justify-between
         ${hydrated ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}
       `}

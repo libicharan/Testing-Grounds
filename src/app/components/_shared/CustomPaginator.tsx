@@ -60,8 +60,8 @@ export default function CustomPaginator({ meta }: Props) {
   return (
     <div className="mt-10 w-full px-10 flex flex-col lg:flex-row justify-between items-center gap-4 text-sm text-gray-700">
       {/* Left: Total */}
-      <div className="flex items-center">
-        Total Jobs: <strong className="ml-1">{meta.total}</strong>
+      <div className="flex items-center text-bold text-black">
+        Rows <strong className="ml-1">{meta.total}</strong>
       </div>
 
       {/* Center: Pagination */}
@@ -70,7 +70,7 @@ export default function CustomPaginator({ meta }: Props) {
         rows={rows}
         totalRecords={meta.total}
         onPageChange={onPageChange}
-        className="!p-2 text-black"
+        className="!p-2 text-black cursor-not-allowed"
         template={{
           layout:
             "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink",
@@ -103,14 +103,6 @@ export default function CustomPaginator({ meta }: Props) {
           <strong>{totalPages}</strong>
         </span>
 
-        {/* Rows per page dropdown */}
-        <Dropdown
-          value={rows}
-          options={rowsOptions}
-          onChange={(e) => onRowsChange(e.value)}
-          className="w-25"
-        />
-
         {/* Go to page input */}
         <input
           type="number"
@@ -118,10 +110,38 @@ export default function CustomPaginator({ meta }: Props) {
           max={totalPages}
           value={goPage}
           onChange={(e) => {
-            setGoPage(e.target.value);
-            onGoToPage(e.target.value);
+            const value = e.target.value;
+            const num = parseInt(value);
+
+            if (isNaN(num)) return;
+
+            let validPage = num;
+
+            if (num < 1) validPage = 1;
+            else if (num > totalPages) validPage = totalPages;
+
+            setGoPage(validPage.toString());
+            onGoToPage(validPage.toString());
           }}
-          className="border px-3 py-1 rounded-md w-16"
+          className="border px-3 py-1 rounded-md w-16 text-center no-spinner"
+        />
+
+        {/* Rows per page dropdown */}
+        <Dropdown
+          value={rows}
+          options={rowsOptions}
+          onChange={(e) => onRowsChange(e.value)}
+          className="!text-sm"
+          panelClassName="!text-sm"
+          dropdownIcon="pi pi-chevron-down"
+          style={{
+            height: "36px",
+            border: "1px solid #000",
+            borderRadius: "6px",
+            fontSize: "0.875rem",
+            display: "flex",
+            alignItems: "center",
+          }}
         />
       </div>
     </div>

@@ -17,6 +17,7 @@ export type Meta = {
 export async function getJobPosts(
   page = 1,
   per_page = 10,
+  search = "",
 ): Promise<{ data: Job[]; meta: Meta }> {
   if (!config.API_URL) throw new Error("API_URL is not defined");
 
@@ -28,7 +29,7 @@ export async function getJobPosts(
   };
 
   const res = await fetch(
-    `${config.API_URL}/job-posts?page=${page}&per_page=${per_page}`,
+    `${config.API_URL}/job-posts?page=${page}&per_page=${per_page}&search=${search}`,
     {
       credentials: "include",
       headers: headersObj,

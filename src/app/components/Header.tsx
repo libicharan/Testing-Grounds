@@ -2,8 +2,13 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 
 export default function Header() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <>
+      <AppBar
+        position="fixed"
+        sx={{
+          zIndex: 1100,
+        }}
+      >
         <Toolbar>
           <IconButton
             size="large"
@@ -13,15 +18,16 @@ export default function Header() {
             sx={{ mr: 2 }}
           ></IconButton>
           <Typography
-            className="text-center"
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1 }}
+            sx={{ flexGrow: 1, textAlign: "center" }}
           >
             Welcome
           </Typography>
         </Toolbar>
       </AppBar>
-    </Box>
+      {/* 👇 This Box adds top margin to push the page content below the AppBar */}
+      <Box sx={{ height: "64px" }} /> {/* Adjust height based on AppBar size */}
+    </>
   );
 }
