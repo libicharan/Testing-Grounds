@@ -6,6 +6,7 @@ import { PrimeReactProvider } from "primereact/api";
 import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
+import StoreProvider from "./StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,10 +33,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PrimeReactProvider>
-          <Header />
-          {children}
-        </PrimeReactProvider>
+        <StoreProvider>
+          <PrimeReactProvider>
+            <Header />
+            {children}
+          </PrimeReactProvider>
+        </StoreProvider>
       </body>
     </html>
   );
