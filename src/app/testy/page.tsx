@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Counter from "../components/_shared/Counter";
 
 export default function Testy() {
@@ -5,6 +6,12 @@ export default function Testy() {
     <div className="p-6">
       <h1 className="text-xl font-semibold mb-4">Counter Page</h1>
       <Counter />
+      <Link
+        href="/"
+        className="inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+      >
+        Go to Testy Page
+      </Link>
     </div>
   );
 }
