@@ -1,5 +1,5 @@
+import Counter from "@/app/components/_shared/Counter";
 import Link from "next/link";
-import Counter from "../components/_shared/Counter";
 
 export default function Testy() {
   return (

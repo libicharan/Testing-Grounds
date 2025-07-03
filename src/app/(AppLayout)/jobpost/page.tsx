@@ -1,8 +1,8 @@
-import { BreadCrumbsroutes } from "../components/_shared/BreadCrumbRoutes";
-import CustomBreadcrumb from "../components/_shared/CustomBreadcrumb";
-import TableSearchInput from "../components/_shared/TableSearchInput";
+import CustomBreadcrumb from "@/app/components/_shared/CustomBreadcrumb";
 import { getJobPosts } from "./actions/posts";
 import JobPostsPageClient from "./JobPostsPageClient";
+import { BreadCrumbsroutes } from "@/app/components/_shared/BreadCrumbRoutes";
+import TableSearchInput from "@/app/components/_shared/TableSearchInput";
 
 export default async function JobPostsPage({
   searchParams,

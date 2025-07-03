@@ -4,7 +4,7 @@ import { ApiError } from "next/dist/server/api-utils";
 import { headers } from "next/headers";
 import config from "./globalconfig";
 import { createQueryString } from "@/app/helpers/helper";
-import { CustomResponse } from "@/app/products/types";
+import { CustomResponse } from "@/app/(AppLayout)/products/types";
 
 type ValidationErrors = {
   [field: string]: string[];

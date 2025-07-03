@@ -5,7 +5,7 @@ import React from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
-import { Job } from "../jobpost/_types/jobposttypes";
+import { Job } from "../(AppLayout)/jobpost/_types/jobposttypes";
 
 type JobCardProps = {
   job: Job;

@@ -1,9 +1,9 @@
 "use client";
 
+import JobCard from "@/app/components/JobCard";
 import { Job } from "./_types/jobposttypes";
 import { Meta } from "./actions/posts";
-import JobCard from "../components/JobCard";
-import CustomPaginator from "../components/_shared/CustomPaginator";
+import CustomPaginator from "@/app/components/_shared/CustomPaginator";
 
 type Props = {
   data: Job[];

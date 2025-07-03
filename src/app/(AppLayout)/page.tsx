@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Counter from "./components/_shared/Counter";
+import Counter from "../components/_shared/Counter";
 
 export default function Home() {
   return (

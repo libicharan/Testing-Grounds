@@ -2,8 +2,8 @@
 
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import { Product } from "../products/actions/getProducts";
 import Image from "next/image";
+import { Product } from "../(AppLayout)/products/actions/getProducts";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (

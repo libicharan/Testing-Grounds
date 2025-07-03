@@ -1,4 +1,4 @@
-import ProductCard from "../components/ProductCard";
+import ProductCard from "@/app/components/ProductCard";
 import { getProducts, type Product } from "./actions/getProducts";
 import { Divider } from "primereact/divider";
 
