@@ -42,7 +42,7 @@ type ErrorResponse = {
   statusCode: number;
   message: string;
   errors?: ValidationErrors;
-  data?: RedirectionErrors;
+  data?: RedirectionErrors | null;
 };
 
 type CustomResponse<Response> = SuccessResponse<Response> | ErrorResponse;

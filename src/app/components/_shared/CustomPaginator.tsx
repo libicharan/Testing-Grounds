@@ -4,16 +4,10 @@ import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import { Dropdown } from "primereact/dropdown";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { PaginationMeta } from "@/types/sharedtypes";
 
 type Props = {
-  meta: {
-    total: number;
-    per_page: number;
-    current_page: number;
-    last_page: number;
-    from: number;
-    to: number;
-  };
+  meta: PaginationMeta;
 };
 
 const rowsOptions = [

@@ -2,12 +2,12 @@
 
 import JobCard from "@/app/components/JobCard";
 import { Job } from "./_types/jobposttypes";
-import { Meta } from "./actions/posts";
 import CustomPaginator from "@/app/components/_shared/CustomPaginator";
+import { PaginationMeta } from "@/types/sharedtypes";
 
 type Props = {
   data: Job[];
-  meta: Meta;
+  meta: PaginationMeta;
 };
 
 export default function JobPostsPageClient({ data, meta }: Props) {

@@ -1,5 +1,7 @@
 "use server";
 
+import { getRequest } from "@/services/api";
+
 export type Product = {
   id: number;
   name: string;
@@ -11,20 +13,12 @@ export type Product = {
   status: number;
 };
 
-export async function getProducts() {
-  const res = await fetch("https://auth.devcri.com/api/products/list", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store",
-  });
+export async function fetchProducts() {
+  const res = await getRequest<Product[]>("/products/list");
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch products");
+  if (!res.state || !res.data) {
+    throw new Error(res.message);
   }
 
-  const json = await res.json();
-
-  return json.data;
+  return res.data;
 }

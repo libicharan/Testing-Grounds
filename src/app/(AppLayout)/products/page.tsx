@@ -1,9 +1,9 @@
 import ProductCard from "@/app/components/ProductCard";
-import { getProducts, type Product } from "./actions/getProducts";
+import { fetchProducts, type Product } from "./actions/getProducts";
 import { Divider } from "primereact/divider";
 
 export default async function ProductsPage() {
-  const products: Product[] = await getProducts();
+  const products: Product[] = await fetchProducts();
 
   return (
     <div className="p-6 dark:bg-white">
