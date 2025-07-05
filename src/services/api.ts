@@ -2,7 +2,7 @@
 
 import { CustomResponse } from "@/app/(AppLayout)/products/types";
 import config from "./globalconfig";
-import { createQueryString, QueryParams } from "@/app/helpers/helper";
+import { createQueryString, QueryParams } from "@/Utils/helper";
 
 // Generic interface for API client parameters
 interface RequestParams<T> {
@@ -73,7 +73,8 @@ async function handleRequest<T, R>({
     return {
       state: false,
       statusCode: 500,
-      message: "Unexpected server error",
+      message:
+        error instanceof Error ? error.message : "Unexpected server error",
       data: undefined,
     };
   }

@@ -7,6 +7,8 @@ import "primereact/resources/themes/lara-light-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import StoreProvider from "../StoreProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +27,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <PrimeReactProvider>
           <Header />
           {children}
+          <ToastContainer position="top-right" />
         </PrimeReactProvider>
       </StoreProvider>
     </div>
