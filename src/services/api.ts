@@ -49,7 +49,9 @@ async function handleRequest<T, R>({
       `📦 Response from ${method} ${url}:\n`,
       JSON.stringify(responseBody, null, 2),
     );
-    const isSuccess = responseBody?.status === true;
+    const isSuccess =
+      response.ok &&
+      (responseBody?.status === undefined || responseBody?.status === true);
 
     if (!response.ok || !isSuccess) {
       return {
