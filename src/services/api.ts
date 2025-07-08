@@ -3,6 +3,7 @@
 import { CustomResponse } from "@/app/(AppLayout)/products/types";
 import config from "./globalconfig";
 import { createQueryString, QueryParams } from "@/Utils/helper";
+import { headers } from "next/headers";
 
 // Generic interface for API client parameters
 interface RequestParams<T> {
@@ -27,16 +28,20 @@ async function handleRequest<T, R>({
 
   const queryString = params ? createQueryString(params) : "";
   const url = `${config.API_URL}${endpoint}${queryString}`;
+  const cookie = (await headers()).get("cookie");
 
   try {
     const response = await fetch(url, {
       method,
-      next: tags ? { tags } : undefined,
+      credentials: "include",
+      next: tags ? { tags } : undefined, // ✅ keep tags
       headers: {
         Accept: "application/json",
+        "X-Requested-With": "XMLHttpRequest",
         ...(data instanceof FormData
           ? {}
           : { "Content-Type": "application/json" }),
+        ...(cookie ? { Cookie: cookie } : {}), // ✅ attach cookie
       },
       ...(data && {
         body: data instanceof FormData ? data : JSON.stringify(data),
