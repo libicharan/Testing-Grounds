@@ -12,20 +12,22 @@ interface TableURLParams {
 type TablePaginationParams = {
   [key: string]: number;
 };
-type TableMetaData = {
+type MetaData = {
   page: number;
   per_page: number;
   search: string | number;
   total: number;
   current_page: number;
   last_page: number;
+  from: number;
+  to: number;
 };
 type SuccessResponse<Response> = {
   state: true;
   statusCode: number;
   data: Response;
   message: string;
-  meta?: TableMetaData;
+  meta?: MetaData;
   pagination?: TablePaginationParams;
   selected_employee_ids?: string[];
 };
@@ -46,12 +48,7 @@ type ErrorResponse = {
 };
 
 type CustomResponse<Response> = SuccessResponse<Response> | ErrorResponse;
-export type {
-  CustomResponse,
-  TablePaginationParams,
-  TableMetaData,
-  TableURLParams,
-};
+export type { CustomResponse, TablePaginationParams, MetaData, TableURLParams };
 export interface TableURLParamsTest {
   page: number;
   per_page: number;
