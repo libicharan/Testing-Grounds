@@ -9,7 +9,7 @@ import {
   Box,
   Paper,
 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   CategoryOption,
@@ -37,6 +37,7 @@ export default function SkillTestForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<SkillFormValues>({
     resolver: zodResolver(skillFormSchema),
@@ -69,28 +70,37 @@ export default function SkillTestForm() {
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Box mb={2}>
-          <TextField
-            select
-            fullWidth
-            label="Job Category"
-            {...register("job_category_id")}
-            error={!!errors.job_category_id}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "999px",
-              },
-            }}
-          >
-            <MenuItem value="" disabled>
-              Select a category
-            </MenuItem>
+          <Box mb={2}>
+            <Controller
+              name="job_category_id"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <TextField
+                  select
+                  fullWidth
+                  label="Job Category"
+                  {...field}
+                  error={!!errors.job_category_id}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "999px",
+                    },
+                  }}
+                >
+                  <MenuItem value="" disabled>
+                    Select a category
+                  </MenuItem>
 
-            {categories.map((cat) => (
-              <MenuItem key={cat.value} value={String(cat.value)}>
-                {cat.label}
-              </MenuItem>
-            ))}
-          </TextField>
+                  {categories.map((cat) => (
+                    <MenuItem key={cat.value} value={String(cat.value)}>
+                      {cat.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              )}
+            />
+          </Box>
 
           <Box sx={{ height: "30px", mt: 0.5 }}>
             <Typography
