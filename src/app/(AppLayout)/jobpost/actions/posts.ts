@@ -8,11 +8,15 @@ export async function getJobPosts(
   page = 1,
   per_page = 10,
   search = "",
+  sort_by: string,
+  sort_order: "asc" | "desc",
 ): Promise<{ data: Job[]; meta: MetaData }> {
   const res: CustomResponse<Job[]> = await getRequest<Job[]>("/job-posts", {
     page,
     per_page,
     search,
+    ...(sort_by && { sort_by }),
+    ...(sort_order && { sort_order }),
   });
 
   if (!res.state || !res.data || !res.meta) {
