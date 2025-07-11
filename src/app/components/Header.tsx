@@ -33,6 +33,7 @@ export default function Header() {
     { label: "Products", path: "/produts", icon: <DashboardIcon /> },
     { label: "jobposts", path: "/jobpost", icon: <InfoIcon /> },
     { label: "jobpostsadd", path: "/jobpost/add", icon: <InfoIcon /> },
+    { label: "jobtable", path: "/jobpost/jobtables", icon: <InfoIcon /> },
   ];
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {

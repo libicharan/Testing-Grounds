@@ -19,6 +19,8 @@
     "@mui/material": "^7.2.0",
     "@reduxjs/toolkit": "^2.8.2",
     "antd": "^5.26.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
     "dayjs": "^1.11.13",
     "flowbite": "^3.1.2",
@@ -26,6 +28,7 @@
     "formik": "^2.4.6",
     "framer-motion": "^12.23.0",
     "init": "^0.1.2",
+    "lucide-react": "^0.525.0",
     "next": "15.3.4",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.6",
@@ -35,6 +38,8 @@
     "react-hook-form": "^7.60.0",
     "react-redux": "^9.2.0",
     "react-toastify": "^11.0.5",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.25.76"
   },
   "devDependencies": {

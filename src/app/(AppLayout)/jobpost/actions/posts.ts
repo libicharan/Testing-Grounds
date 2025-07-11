@@ -1,6 +1,6 @@
 "use server";
 
-import { getRequest, postRequest } from "@/services/api"; // <-- update path as needed
+import { getRequest, postRequest } from "@/services/api";
 import { Job } from "../_types/jobposttypes";
 import { CustomResponse, MetaData } from "@/app/(AppLayout)/products/types";
 
