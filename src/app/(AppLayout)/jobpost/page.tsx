@@ -13,7 +13,13 @@ export default async function JobPostsPage({
   const perPage = parseInt((await searchParams).per_page || "10");
   const search = (await searchParams).search || "";
 
-  const { data, meta } = await getJobPosts(page, perPage, search);
+  const { data, meta } = await getJobPosts(
+    page,
+    perPage,
+    search,
+    "created_at",
+    "desc",
+  );
 
   return (
     <div className="p-6 bg-white">

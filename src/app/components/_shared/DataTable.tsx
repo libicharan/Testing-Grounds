@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Pagination, Select, InputNumber, Spin, Alert } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
-import search from "antd/es/transfer/search";
 
 // Types
 export type MetaData = {
@@ -26,6 +25,7 @@ export type PaginatedTableProps<T> = {
     perPage: number,
     sortField?: keyof T,
     sortOrder?: SortOrderAPI,
+    search?: string,
   ) => Promise<{
     data: T[];
     meta: MetaData;
@@ -44,6 +44,7 @@ export default function PaginatedTable<T extends object>({
   columns,
   rowKey = "id",
   fetcher,
+  search,
 }: PaginatedTableProps<T>) {
   const [data, setData] = useState<T[]>([]);
   const [meta, setMeta] = useState<MetaData>({
@@ -63,8 +64,6 @@ export default function PaginatedTable<T extends object>({
     page = 1,
     perPage = 10,
     sortFieldParam?: keyof T,
-    p0?: string | undefined,
-    search?: unknown,
     sortOrderParam?: SortOrderAPI,
   ) => {
     setLoading(true);
@@ -75,6 +74,7 @@ export default function PaginatedTable<T extends object>({
         perPage,
         sortFieldParam,
         sortOrderParam,
+        search,
       );
       setData(data);
       setMeta(meta);
@@ -92,7 +92,7 @@ export default function PaginatedTable<T extends object>({
   }, [search]);
 
   const onPageChange = (page: number, perPage: number) => {
-    fetchData(page, perPage, sortField, mapSortOrder(sortOrder), search);
+    fetchData(page, perPage, sortField, mapSortOrder(sortOrder));
   };
 
   const onTableChange: TableProps<T>["onChange"] = (_, __, sorter) => {

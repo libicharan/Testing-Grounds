@@ -15,7 +15,18 @@ const columns: ColumnsType<Job> = [
     render: (title: string) => <Tag color="blue">{title}</Tag>,
     sorter: true,
   },
-  { title: "Department", dataIndex: "department" },
+  {
+    title: "Department",
+    dataIndex: "department",
+    filterMode: "tree",
+    filters: [
+      {
+        text: "Product Management",
+        value: "Product Management",
+      },
+    ],
+    onFilter: (value, record) => record.department === value,
+  },
   { title: "Location", dataIndex: "job_location" },
   { title: "Designation", dataIndex: "designation" },
 ];

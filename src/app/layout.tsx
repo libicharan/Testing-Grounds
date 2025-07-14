@@ -1,4 +1,6 @@
 // app/layout.tsx
+import "@ant-design/v5-patch-for-react-19"; // ✅ Must be first!
+import { AntdRegistry } from "@ant-design/nextjs-registry"; // Optional, but recommended
 import type { Metadata } from "next";
 import "./globals.css";
 
@@ -14,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AntdRegistry>{children}</AntdRegistry>{" "}
+        {/* ✅ Required for SSR hydration */}
+      </body>
     </html>
   );
 }
