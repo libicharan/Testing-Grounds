@@ -7,33 +7,35 @@ import { getJobPosts } from "../actions/posts";
 import { Job } from "../_types/jobposttypes";
 import type { ColumnsType } from "antd/es/table";
 import ReusableSearchInput from "@/app/components/_shared/antdsearchinput";
-
-const columns: ColumnsType<Job> = [
-  {
-    title: "Job Title",
-    dataIndex: "job_title",
-    render: (title: string) => <Tag color="blue">{title}</Tag>,
-    sorter: true,
-  },
-  {
-    title: "Department",
-    dataIndex: "department",
-    filterMode: "tree",
-    filters: [
-      {
-        text: "Product Management",
-        value: "Product Management",
-      },
-    ],
-    onFilter: (value, record) => record.department === value,
-  },
-  { title: "Location", dataIndex: "job_location" },
-  { title: "Designation", dataIndex: "designation" },
-];
+import { useAntdFilters } from "@/app/components/table/useAntdFilters";
 
 export default function JobsPage() {
   const [search, setSearch] = useState("");
 
+  // ✅ Load department filters
+  const { filters: departmentFilters, loading } = useAntdFilters(
+    `/job-categories/department-list`,
+  );
+
+  // ✅ Define columns after departmentFilters is available
+  const columns: ColumnsType<Job> = [
+    {
+      title: "Job Title",
+      dataIndex: "job_title",
+      render: (title: string) => <Tag color="blue">{title}</Tag>,
+      sorter: true,
+    },
+    {
+      title: "Department",
+      dataIndex: "department",
+      filters: departmentFilters,
+      onFilter: (value, record) => record.department === value,
+    },
+    { title: "Location", dataIndex: "job_location" },
+    { title: "Designation", dataIndex: "designation" },
+  ];
+
+  // ✅ Paginated fetcher
   const fetcher = async (
     page: number,
     perPage: number,
@@ -57,12 +59,17 @@ export default function JobsPage() {
         onSearch={(val) => setSearch(val)}
       />
 
-      <PaginatedTable<Job>
-        columns={columns}
-        rowKey="uuid"
-        fetcher={fetcher}
-        search={search}
-      />
+      {/* ✅ Skip rendering if filters are still loading */}
+      {loading ? (
+        <p>Loading filters...</p>
+      ) : (
+        <PaginatedTable<Job>
+          columns={columns}
+          rowKey="uuid"
+          fetcher={fetcher}
+          search={search}
+        />
+      )}
     </div>
   );
 }

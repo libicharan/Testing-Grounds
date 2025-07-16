@@ -10,6 +10,7 @@ export async function getJobPosts(
   search = "",
   sort_by: string,
   sort_order: "asc" | "desc",
+  department_ids: number[] = [],
 ): Promise<{ data: Job[]; meta: MetaData }> {
   const res: CustomResponse<Job[]> = await getRequest<Job[]>("/job-posts", {
     page,
@@ -17,6 +18,7 @@ export async function getJobPosts(
     search,
     ...(sort_by && { sort_by }),
     ...(sort_order && { sort_order }),
+    ...(department_ids.length > 0 && { department_id: department_ids }),
   });
 
   if (!res.state || !res.data || !res.meta) {
@@ -78,5 +80,32 @@ export async function getSkillCategories(): Promise<CategoryOption[]> {
   }
 
   console.error("Failed to fetch skill categories", res.message);
+  return [];
+}
+
+// department filter
+
+export type DepartmentOption = {
+  id: number;
+  department_name: string;
+};
+
+export type DepartmentFilterOption = {
+  text: string;
+  value: number;
+};
+
+export async function getDepartmentsByJobCategory(
+  jobCategoryId: number,
+): Promise<DepartmentOption[]> {
+  const res = await getRequest<DepartmentOption[]>(
+    `/myrecruit/job-posts/department-list/${jobCategoryId}`,
+  );
+
+  if (res.state && res.data) {
+    return res.data;
+  }
+
+  console.error("Failed to fetch departments", res.message);
   return [];
 }
