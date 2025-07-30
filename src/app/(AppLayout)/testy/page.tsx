@@ -1,17 +1,16 @@
-import Counter from "@/app/components/_shared/Counter";
-import Link from "next/link";
+// src/app/(AppLayout)/testy/page.tsx
+// import QRScanClient from '@/app/components/ScanWrapper';
 
-export default function Testy() {
+import GhostScanner from "@/app/components/table/ParanormalScanner";
+// import ParanormalScanner from "@/app/components/table/ParanormalScanner";
+
+export default function QRScanPage() {
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-semibold mb-4">Counter Page</h1>
-      <Counter />
-      <Link
-        href="/"
-        className="inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-      >
-        Go to Testy Page
-      </Link>
+    <div className="p-8">
+      <h1 className="text-xl font-bold mb-4">QR Scanner</h1>
+      {/* <QRScanClient /> */}
+      {/* <ParanormalScanner/> */}
+      <GhostScanner />
     </div>
   );
 }
